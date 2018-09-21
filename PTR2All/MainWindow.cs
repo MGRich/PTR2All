@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using DiscUtils.Iso9660;
-using DiscUtils;
+using DiscUtils
+
 
 namespace PTR2All
 {
@@ -52,6 +53,44 @@ namespace PTR2All
                 FileStream file = File.Open(open.FileName, FileMode.Open);
                 iso = new CDReader(file, true, true);
                 isoList();
+            }
+        }
+
+        private TreeNode usnd = null;
+
+        private void extractFile(object sender, EventArgs e)
+        {
+            SaveFileDialog open = new SaveFileDialog
+            {
+                Title = "Extract to..",
+                Filter = "All types|*.*",
+                FileName = usnd.Text
+            };
+            if (open.ShowDialog() == DialogResult.OK)
+            {
+                FileStream output = new FileStream(open.FileName, FileMode.Create);
+                string path = usnd.Parent.Text + @"\" + usnd.Text;
+                Stream stream = iso.OpenFile(path, FileMode.Open);
+                stream.CopyTo(output);
+                output.Close();
+            }
+        }
+
+        private void treeContextMenu(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            if (e.Button != MouseButtons.Right || e.Node.Parent == null)
+            {
+                return;
+            }
+            usnd = e.Node;
+            fileRightClick.Show(Cursor.Position);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            PTR2Lib.NStageM w = new PTR2Lib.NStageM
+            {
+                inputData = new byte[16]
             }
         }
     }

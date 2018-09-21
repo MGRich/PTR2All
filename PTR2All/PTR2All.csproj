@@ -89,5 +89,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PTR2Lib\PTR2Lib.csproj">
+      <Project>{3f0c02c8-8779-48d3-923f-a541c3240d55}</Project>
+      <Name>PTR2Lib</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
