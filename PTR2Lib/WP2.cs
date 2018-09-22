@@ -10,8 +10,9 @@ namespace PTR2Lib
     public class WP2
     {
         public FileStream wp2;
+        //private bool dp = false;
 
-        public void dump(FileStream wav, byte[] deIntData)
+        public void ManualDump(FileStream wav, byte[] deIntData)
         {
             BinaryWriter wte = new BinaryWriter(wav);
             wte.Write(Encoding.ASCII.GetBytes("RIFF"));
@@ -30,6 +31,7 @@ namespace PTR2Lib
             wte.Write(deIntData);
             wav.Flush();
             wte.Close();
+            wav.Close();
         }
     }
 }

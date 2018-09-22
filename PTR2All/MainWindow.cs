@@ -9,8 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using DiscUtils.Iso9660;
-using DiscUtils
-
+using DiscUtils;
 
 namespace PTR2All
 {
@@ -88,10 +87,29 @@ namespace PTR2All
 
         private void button1_Click(object sender, EventArgs e)
         {
-            PTR2Lib.NStageM w = new PTR2Lib.NStageM
+            OpenFileDialog open = new OpenFileDialog
             {
-                inputData = new byte[16]
+                Filter = "WP2 Files|*.WP2",
+                Title = "Open WP2 File"
+            };
+            SaveFileDialog save = new SaveFileDialog
+            {
+                Filter = "WAV Files|*.wav",
+                Title = "Save WAV File"
+            };
+            if (open.ShowDialog() != DialogResult.OK)
+            {
+                return;
             }
+            if (save.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+            byte[] i = File.ReadAllBytes(open.FileName);
+            PTR2Lib.GStageM mus = new PTR2Lib.GStageM(i, save.FileName);
+            mus.dump();
+            i = null;
+            //mus.Dispose();
         }
     }
 }

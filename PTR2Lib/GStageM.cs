@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.ComponentModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,27 +8,50 @@ using System.Threading.Tasks;
 
 namespace PTR2Lib
 {
-    public class NStageM : WP2
+    public class GStageM : WP2
     {
-        public byte[] inputData = null;
         private byte[] interData;
         private byte[] deinterData;
         public string outputDir = null;
 
-        public NStageM(byte[] i, string o)
+        public GStageM(byte[] i, string o)
         {
-            inputData = i;
+            interData = i;
             outputDir = o;
         }
 
-        public void wavExtract()
+        public GStageM(byte[] i)
         {
+            interData = i;
+        }
+
+        public void dump(FileStream wav)
+        {
+            deinterleave();
+            ManualDump(wav, deinterData);
+            wav.Close();
+        }
+
+        public void dump(string path)
+        {
+            FileStream wav = File.Open(path, FileMode.Create);
+            dump(wav);
+        }
+
+        public void dump()
+        {
+            FileStream wav = File.Open(outputDir, FileMode.Create);
+            dump(wav);
+        }
+
+        /*public void deintCopy()
+        { do you REMEMNBRRRRRRRRR
             //byte[] dataLength = new byte[4];
             //Buffer.BlockCopy(inputData, 36, dataLength, 0, 4);
             int dataLength = BitConverter.ToInt32(inputData, 40);
             deinterData = new byte[dataLength];
             Buffer.BlockCopy(inputData, 44, deinterData, 0, dataLength);
-        }
+        }THE 21St NIGHT OF SEPTEMBRRR R R R */
 
         public void deinterleave()
         {

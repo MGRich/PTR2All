@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NStageM.cs" />
+    <Compile Include="GStageM.cs" />
     <Compile Include="WP2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
