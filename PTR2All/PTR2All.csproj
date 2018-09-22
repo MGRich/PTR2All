@@ -63,6 +63,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TransparentPictureBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
@@ -90,6 +93,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Desktop\h\Rainbow\Rainbow.ImgLib\Rainbow.ImgLib.csproj">
+      <Project>{c4117527-926b-4588-bde3-53ec241e62b4}</Project>
+      <Name>Rainbow.ImgLib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PTR2Lib\PTR2Lib.csproj">
       <Project>{3f0c02c8-8779-48d3-923f-a541c3240d55}</Project>
       <Name>PTR2Lib</Name>

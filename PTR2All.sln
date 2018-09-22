@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PTR2All", "PTR2All\PTR2All.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PTR2Lib", "PTR2Lib\PTR2Lib.csproj", "{3F0C02C8-8779-48D3-923F-A541C3240D55}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rainbow.ImgLib", "..\..\..\Desktop\h\Rainbow\Rainbow.ImgLib\Rainbow.ImgLib.csproj", "{C4117527-926B-4588-BDE3-53EC241E62B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nQuant.Core", "..\..\..\Desktop\h\Rainbow\nQuant.Core\nQuant.Core.csproj", "{A59307EA-FCB0-4110-BC42-0417871C24C4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{3F0C02C8-8779-48D3-923F-A541C3240D55}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F0C02C8-8779-48D3-923F-A541C3240D55}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F0C02C8-8779-48D3-923F-A541C3240D55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4117527-926B-4588-BDE3-53EC241E62B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4117527-926B-4588-BDE3-53EC241E62B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4117527-926B-4588-BDE3-53EC241E62B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4117527-926B-4588-BDE3-53EC241E62B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A59307EA-FCB0-4110-BC42-0417871C24C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A59307EA-FCB0-4110-BC42-0417871C24C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A59307EA-FCB0-4110-BC42-0417871C24C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A59307EA-FCB0-4110-BC42-0417871C24C4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

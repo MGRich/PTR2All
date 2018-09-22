@@ -36,6 +36,10 @@ namespace PTR2All
                 foreach (DiscFileInfo y in x.GetFiles())
                 {
                     fileTree.Nodes[dti[x.Name]].Nodes.Add(y.Name);
+                    if (y.Name.ToLower().EndsWith("int"))
+                    {
+                        intList.Items.Add(y.Name);
+                    }
                 }
             }
         }
@@ -87,7 +91,7 @@ namespace PTR2All
 
         private void button1_Click(object sender, EventArgs e)
         {
-            OpenFileDialog open = new OpenFileDialog
+            /*OpenFileDialog open = new OpenFileDialog
             {
                 Filter = "WP2 Files|*.WP2",
                 Title = "Open WP2 File"
@@ -106,10 +110,35 @@ namespace PTR2All
                 return;
             }
             byte[] i = File.ReadAllBytes(open.FileName);
-            PTR2Lib.GStageM mus = new PTR2Lib.GStageM(i, save.FileName);
+            PTR2Lib.NStageM mus = new PTR2Lib.NStageM(i, save.FileName);
             mus.dump();
             i = null;
             //mus.Dispose();
+            */
+            OpenFileDialog open = new OpenFileDialog
+            {
+                Filter = "e|*.tm1;*.tm2"
+            };
+            if (open.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+            PTR2Lib.TM2 tex = new PTR2Lib.TM2(open.FileName);
+            tm2Image.SetTexture(tex.Texture);
+        }
+
+        private void moveTab(object sender, TreeViewEventArgs e)
+        {
+            string n = e.Node.Text.ToLower();
+            if (n.EndsWith("wp2"))
+            {
+                tabs.SelectedTab = wp2Tab;
+            }
+            else if (n.EndsWith("int"))
+            {
+                tabs.SelectedTab = intTab;
+                intList.SelectedItem = e.Node.Text;
+            }
         }
     }
 }
