@@ -15,6 +15,8 @@ namespace PTR2All
 {
     public partial class MainWindow : Form
     {
+        private PTR2Lib.TM2 tex;
+
         private CDReader iso = null;
 
         public MainWindow()
@@ -89,9 +91,38 @@ namespace PTR2All
             fileRightClick.Show(Cursor.Position);
         }
 
+        /*[System.Runtime.InteropServices.DllImport("ptr2int.dll")]
+        public static extern int cmd_list(short argc, StringBuilder[] args);
+        */
+
         private void button1_Click(object sender, EventArgs e)
         {
-            /*OpenFileDialog open = new OpenFileDialog
+            /*  StringBuilder[] strings = new StringBuilder[1];
+              OpenFileDialog open = new OpenFileDialog();
+              open.ShowDialog();
+              strings[0] = new StringBuilder(open.FileName);
+              cmd_list(0, strings); //if this fuckin works i swear
+                       yeah, lets not for now k thanks
+          */
+        }
+
+        private void moveTab(object sender, TreeViewEventArgs e)
+        {
+            string n = e.Node.Text.ToLower();
+            if (n.EndsWith("wp2"))
+            {
+                tabs.SelectedTab = wp2Tab;
+            }
+            else if (n.EndsWith("int"))
+            {
+                tabs.SelectedTab = intTab;
+                intList.SelectedItem = e.Node.Text;
+            }
+        }
+
+        private void temp1()
+        {
+            OpenFileDialog open = new OpenFileDialog
             {
                 Filter = "WP2 Files|*.WP2",
                 Title = "Open WP2 File"
@@ -114,7 +145,61 @@ namespace PTR2All
             mus.dump();
             i = null;
             //mus.Dispose();
-            */
+        }
+
+        private void temp2()
+        {
+            OpenFileDialog open = new OpenFileDialog
+            {
+                Filter = "e|*.int"
+            };
+            if (open.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+            SaveFileDialog save = new SaveFileDialog
+            {
+                Filter = "PNG+XML Export|*.xml"
+            };
+            if (save.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+            PTR2Lib.INT impint = new PTR2Lib.INT(open.FileName);
+            impint.extract(Path.GetDirectoryName(save.FileName));
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            temp2();
+            SaveFileDialog save = new SaveFileDialog
+            {
+                Filter = "PNG+XML Export|*.xml"
+            };
+            if (save.ShowDialog() == DialogResult.OK)
+            {
+                tex.export(save.FileName);
+            }
+        }
+
+        private void tm2Export(object sender, EventArgs e)
+        {
+            if (tex == null)
+            {
+                return;
+            }
+            SaveFileDialog save = new SaveFileDialog
+            {
+                Filter = "PNG+XML Export|*.xml"
+            };
+            if (save.ShowDialog() == DialogResult.OK)
+            {
+                tex.export(save.FileName);
+            }
+        }
+
+        private void tm2Open(object sender, EventArgs e)
+        {
             OpenFileDialog open = new OpenFileDialog
             {
                 Filter = "e|*.tm1;*.tm2"
@@ -123,22 +208,17 @@ namespace PTR2All
             {
                 return;
             }
-            PTR2Lib.TM2 tex = new PTR2Lib.TM2(open.FileName);
+            tex = new PTR2Lib.TM2(open.FileName);
             tm2Image.SetTexture(tex.Texture);
-        }
-
-        private void moveTab(object sender, TreeViewEventArgs e)
-        {
-            string n = e.Node.Text.ToLower();
-            if (n.EndsWith("wp2"))
-            {
-                tabs.SelectedTab = wp2Tab;
-            }
-            else if (n.EndsWith("int"))
-            {
-                tabs.SelectedTab = intTab;
-                intList.SelectedItem = e.Node.Text;
-            }
+            Point loc = tm2Image.Location;
+            loc.X = 311 - (tm2Image.Width / 2);
+            tm2Image.Location = loc;
+            Size sz = tm2Image.Size;
+            sz.Width += 5;
+            sz.Height += 5;
+            tm2Image.Size = sz;
+            tm2Image.BorderStyle = BorderStyle.FixedSingle;
+            tm2Image.BackgroundImageLayout = ImageLayout.Center;
         }
     }
 }

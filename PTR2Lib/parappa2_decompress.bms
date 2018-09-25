@@ -1,0 +1,12 @@
+comtype lzss "12 4 2 2 0"
+get SIZE asize
+clog "originalfolder.dat" 0 SIZE 999999999
+
+# if this script gives you issues, replace the third line with these following two lines:
+#
+# set UNCOMPSIZE ? ?
+# clog "originalfolder.dat" 0 SIZE UNCOMPSIZE
+#
+# QuickBMS will ask you to set UNCOMPSIZE upon running those two lines. 
+# Set it to the uncompressed size (in bytes) of the folder you're trying to decompress.
+# I highly suggest adding some padding to the bytesize.

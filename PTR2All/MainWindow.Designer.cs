@@ -42,6 +42,9 @@
             this.intList = new System.Windows.Forms.ListBox();
             this.tm2Tab = new System.Windows.Forms.TabPage();
             this.tm2Image = new Rainbow.App.GUI.Controls.TransparentPictureBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.tm2ExportB = new System.Windows.Forms.Button();
+            this.tm2OpenB = new System.Windows.Forms.Button();
             this.menuStrip.SuspendLayout();
             this.fileRightClick.SuspendLayout();
             this.tabs.SuspendLayout();
@@ -100,7 +103,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(12, 415);
+            this.button1.Location = new System.Drawing.Point(12, 424);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 3;
@@ -150,6 +153,8 @@
             // 
             // tm2Tab
             // 
+            this.tm2Tab.Controls.Add(this.tm2OpenB);
+            this.tm2Tab.Controls.Add(this.tm2ExportB);
             this.tm2Tab.Controls.Add(this.tm2Image);
             this.tm2Tab.Location = new System.Drawing.Point(4, 22);
             this.tm2Tab.Name = "tm2Tab";
@@ -160,17 +165,49 @@
             // 
             // tm2Image
             // 
+            this.tm2Image.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tm2Image.Chessboard = true;
-            this.tm2Image.Location = new System.Drawing.Point(211, 30);
+            this.tm2Image.Location = new System.Drawing.Point(311, 50);
             this.tm2Image.Name = "tm2Image";
-            this.tm2Image.Size = new System.Drawing.Size(200, 200);
+            this.tm2Image.Size = new System.Drawing.Size(0, 0);
             this.tm2Image.TabIndex = 1;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(93, 424);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 5;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // tm2ExportB
+            // 
+            this.tm2ExportB.Location = new System.Drawing.Point(354, 181);
+            this.tm2ExportB.Name = "tm2ExportB";
+            this.tm2ExportB.Size = new System.Drawing.Size(75, 23);
+            this.tm2ExportB.TabIndex = 6;
+            this.tm2ExportB.Text = "Export";
+            this.tm2ExportB.UseVisualStyleBackColor = true;
+            this.tm2ExportB.Click += new System.EventHandler(this.tm2Export);
+            // 
+            // tm2OpenB
+            // 
+            this.tm2OpenB.Location = new System.Drawing.Point(273, 181);
+            this.tm2OpenB.Name = "tm2OpenB";
+            this.tm2OpenB.Size = new System.Drawing.Size(75, 23);
+            this.tm2OpenB.TabIndex = 7;
+            this.tm2OpenB.Text = "Open TM2";
+            this.tm2OpenB.UseVisualStyleBackColor = true;
+            this.tm2OpenB.Click += new System.EventHandler(this.tm2Open);
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.tabs);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.fileTree);
@@ -203,6 +240,9 @@
         private System.Windows.Forms.TabPage tm2Tab;
         private System.Windows.Forms.ListBox intList;
         private Rainbow.App.GUI.Controls.TransparentPictureBox tm2Image;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button tm2ExportB;
+        private System.Windows.Forms.Button tm2OpenB;
     }
 }
 

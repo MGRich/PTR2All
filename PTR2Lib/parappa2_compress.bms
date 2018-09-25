@@ -1,0 +1,4 @@
+# Script originally created by oddMLan
+comtype lzss_compress "12 4 2 2 0"
+get SIZE asize
+clog "folder.dat" 0 SIZE SIZE
