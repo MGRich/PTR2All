@@ -16,6 +16,7 @@ namespace PTR2All
     public partial class MainWindow : Form
     {
         private PTR2Lib.TM2 tex;
+        private PTR2Lib.INT currentInt;
 
         private CDReader iso = null;
 
@@ -25,6 +26,20 @@ namespace PTR2All
         }
 
         private Dictionary<string, int> dti = new Dictionary<string, int>();
+        private Dictionary<string, string> i2p = new Dictionary<string, string>();
+
+        private void changeStatus(string text, bool bar)
+        {
+            statusLabel.Text = text;
+            if (bar)
+            {
+                stripProgress.MarqueeAnimationSpeed = 200;
+            }
+            else
+            {
+                stripProgress.MarqueeAnimationSpeed = 0;
+            }
+        }
 
         public void isoList()
         {
@@ -37,10 +52,12 @@ namespace PTR2All
                 i++;
                 foreach (DiscFileInfo y in x.GetFiles())
                 {
-                    fileTree.Nodes[dti[x.Name]].Nodes.Add(y.Name);
+                    TreeNode node = fileTree.Nodes[dti[x.Name]].Nodes.Add(y.Name);
                     if (y.Name.ToLower().EndsWith("int"))
                     {
+                        //node.Nodes.Add("dummy");
                         intList.Items.Add(y.Name);
+                        i2p.Add(y.Name, string.Format(@"{0}\{1}", x.Name, y.Name));
                     }
                 }
             }
@@ -97,13 +114,14 @@ namespace PTR2All
 
         private void button1_Click(object sender, EventArgs e)
         {
-            /*  StringBuilder[] strings = new StringBuilder[1];
-              OpenFileDialog open = new OpenFileDialog();
-              open.ShowDialog();
-              strings[0] = new StringBuilder(open.FileName);
-              cmd_list(0, strings); //if this fuckin works i swear
-                       yeah, lets not for now k thanks
-          */
+            OpenFileDialog open = new OpenFileDialog
+            {
+                //Filter = "a|*.tm1",
+            };
+            if (open.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
         }
 
         private void moveTab(object sender, TreeViewEventArgs e)
@@ -219,6 +237,37 @@ namespace PTR2All
             tm2Image.Size = sz;
             tm2Image.BorderStyle = BorderStyle.FixedSingle;
             tm2Image.BackgroundImageLayout = ImageLayout.Center;
+        }
+
+        private void loadINT(object sender, EventArgs e)
+        {
+            ListBox list = (ListBox)sender;
+            intTree.Nodes.Clear();
+            string selected = (string)list.SelectedItem;
+            string path = i2p[selected];
+            Stream stream = iso.OpenFile(path, FileMode.Open);
+            currentInt = new PTR2Lib.INT(stream);
+            Dictionary<PTR2Lib.INT.SectionInfo, List<PTR2Lib.INT.INTFile>> files = currentInt.sectionsToDict();
+            int i = 0;
+            changeStatus("Loading " + selected + "..", true);
+            foreach (PTR2Lib.INT.SectionInfo section in files.Keys)
+            {
+                intTree.Nodes.Add(section.folderName);
+                foreach (PTR2Lib.INT.INTFile file in section.files)
+                {
+                    intTree.Nodes[i].Nodes.Add(file.name);
+                }
+                i++;
+            }
+            changeStatus(null, false);
+        }
+
+        private void intFileProperties(object sender, TreeViewEventArgs e)
+        {
+            if (e.Node.Parent == null)
+            {
+                return;
+            }
         }
     }
 }

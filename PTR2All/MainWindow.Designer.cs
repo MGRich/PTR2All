@@ -41,15 +41,23 @@
             this.intTab = new System.Windows.Forms.TabPage();
             this.intList = new System.Windows.Forms.ListBox();
             this.tm2Tab = new System.Windows.Forms.TabPage();
-            this.tm2Image = new Rainbow.App.GUI.Controls.TransparentPictureBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.tm2ExportB = new System.Windows.Forms.Button();
             this.tm2OpenB = new System.Windows.Forms.Button();
+            this.tm2ExportB = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.intTree = new System.Windows.Forms.TreeView();
+            this.tm2Image = new Rainbow.App.GUI.Controls.TransparentPictureBox();
+            this.iNTBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.stripProgress = new System.Windows.Forms.ToolStripProgressBar();
+            this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
             this.menuStrip.SuspendLayout();
             this.fileRightClick.SuspendLayout();
             this.tabs.SuspendLayout();
             this.intTab.SuspendLayout();
             this.tm2Tab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.iNTBindingSource)).BeginInit();
+            this.statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip
@@ -134,6 +142,8 @@
             // 
             // intTab
             // 
+            this.intTab.Controls.Add(this.propertyGrid1);
+            this.intTab.Controls.Add(this.intTree);
             this.intTab.Controls.Add(this.intList);
             this.intTab.Location = new System.Drawing.Point(4, 22);
             this.intTab.Name = "intTab";
@@ -150,6 +160,7 @@
             this.intList.Name = "intList";
             this.intList.Size = new System.Drawing.Size(108, 342);
             this.intList.TabIndex = 0;
+            this.intList.SelectedValueChanged += new System.EventHandler(this.loadINT);
             // 
             // tm2Tab
             // 
@@ -163,24 +174,15 @@
             this.tm2Tab.Text = "TM2 Export/Import";
             this.tm2Tab.UseVisualStyleBackColor = true;
             // 
-            // tm2Image
+            // tm2OpenB
             // 
-            this.tm2Image.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tm2Image.Chessboard = true;
-            this.tm2Image.Location = new System.Drawing.Point(311, 50);
-            this.tm2Image.Name = "tm2Image";
-            this.tm2Image.Size = new System.Drawing.Size(0, 0);
-            this.tm2Image.TabIndex = 1;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(93, 424);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.tm2OpenB.Location = new System.Drawing.Point(273, 181);
+            this.tm2OpenB.Name = "tm2OpenB";
+            this.tm2OpenB.Size = new System.Drawing.Size(75, 23);
+            this.tm2OpenB.TabIndex = 7;
+            this.tm2OpenB.Text = "Open TM2";
+            this.tm2OpenB.UseVisualStyleBackColor = true;
+            this.tm2OpenB.Click += new System.EventHandler(this.tm2Open);
             // 
             // tm2ExportB
             // 
@@ -192,21 +194,75 @@
             this.tm2ExportB.UseVisualStyleBackColor = true;
             this.tm2ExportB.Click += new System.EventHandler(this.tm2Export);
             // 
-            // tm2OpenB
+            // button2
             // 
-            this.tm2OpenB.Location = new System.Drawing.Point(273, 181);
-            this.tm2OpenB.Name = "tm2OpenB";
-            this.tm2OpenB.Size = new System.Drawing.Size(75, 23);
-            this.tm2OpenB.TabIndex = 7;
-            this.tm2OpenB.Text = "Open TM2";
-            this.tm2OpenB.UseVisualStyleBackColor = true;
-            this.tm2OpenB.Click += new System.EventHandler(this.tm2Open);
+            this.button2.Location = new System.Drawing.Point(93, 424);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 5;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // intTree
+            // 
+            this.intTree.Location = new System.Drawing.Point(121, 16);
+            this.intTree.Name = "intTree";
+            this.intTree.Size = new System.Drawing.Size(135, 342);
+            this.intTree.TabIndex = 1;
+            this.intTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.intFileProperties);
+            // 
+            // tm2Image
+            // 
+            this.tm2Image.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tm2Image.Chessboard = true;
+            this.tm2Image.Location = new System.Drawing.Point(311, 50);
+            this.tm2Image.Name = "tm2Image";
+            this.tm2Image.Size = new System.Drawing.Size(0, 0);
+            this.tm2Image.TabIndex = 1;
+            // 
+            // iNTBindingSource
+            // 
+            this.iNTBindingSource.DataSource = typeof(PTR2Lib.INT);
+            // 
+            // statusStrip
+            // 
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.stripProgress,
+            this.statusLabel});
+            this.statusStrip.Location = new System.Drawing.Point(0, 451);
+            this.statusStrip.Name = "statusStrip";
+            this.statusStrip.Size = new System.Drawing.Size(800, 22);
+            this.statusStrip.TabIndex = 6;
+            this.statusStrip.Text = "statusStrip1";
+            // 
+            // statusLabel
+            // 
+            this.statusLabel.Name = "statusLabel";
+            this.statusLabel.Size = new System.Drawing.Size(0, 17);
+            // 
+            // stripProgress
+            // 
+            this.stripProgress.Enabled = false;
+            this.stripProgress.MarqueeAnimationSpeed = 0;
+            this.stripProgress.Maximum = 200;
+            this.stripProgress.Name = "stripProgress";
+            this.stripProgress.Size = new System.Drawing.Size(200, 16);
+            this.stripProgress.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            // 
+            // propertyGrid1
+            // 
+            this.propertyGrid1.Location = new System.Drawing.Point(262, 16);
+            this.propertyGrid1.Name = "propertyGrid1";
+            this.propertyGrid1.Size = new System.Drawing.Size(355, 342);
+            this.propertyGrid1.TabIndex = 2;
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 473);
+            this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.tabs);
             this.Controls.Add(this.button1);
@@ -221,6 +277,9 @@
             this.tabs.ResumeLayout(false);
             this.intTab.ResumeLayout(false);
             this.tm2Tab.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.iNTBindingSource)).EndInit();
+            this.statusStrip.ResumeLayout(false);
+            this.statusStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -243,6 +302,12 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button tm2ExportB;
         private System.Windows.Forms.Button tm2OpenB;
+        private System.Windows.Forms.TreeView intTree;
+        private System.Windows.Forms.BindingSource iNTBindingSource;
+        private System.Windows.Forms.StatusStrip statusStrip;
+        private System.Windows.Forms.ToolStripStatusLabel statusLabel;
+        private System.Windows.Forms.ToolStripProgressBar stripProgress;
+        private System.Windows.Forms.PropertyGrid propertyGrid1;
     }
 }
 
